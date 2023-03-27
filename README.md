@@ -1,6 +1,6 @@
-#Interview Search
+# Interview Search
 
-##Description
+## Description
 This is a tool for searching in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list.
 
 It's intended to find openings that match the technologies I use, but why not make it dynamic and share it on github?
