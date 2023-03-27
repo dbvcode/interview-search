@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as dotenv from "dotenv";
 import puppeteer, { Page } from "puppeteer";
+import { db_errored, db_found } from "./db";
+
 dotenv.config();
 
 declare global {
@@ -58,8 +60,22 @@ const loadPageAndSearchForJobs = async (page: Page, terms: string[]) => {
     return foundTerms;
 }
 
+const showAllFound = () => {
+    Array.from(db_found).forEach(f => console.log(f.url, f.found))
+}
+
+
+const getIgnoreList = () => {
+    return [
+        ...Array.from(db_found).map(m => m.url),
+        ...Array.from(db_errored).map(m => m.url),
+    ]
+}
 
 (async () => {
+
+    showAllFound();
+
     if (!process.env.TECHNOLOGIES_TERMS || !process.env.HREF_DISCOVER || !process.env.HWW_LIST) {
         console.log('TECHNOLOGIES_TERMS, HREF_DISCOVER, HWW_LIST should be configured in .env file');
         return;
@@ -72,6 +88,11 @@ const loadPageAndSearchForJobs = async (page: Page, terms: string[]) => {
 
     try {
         const list = await parseList(process.env.HWW_LIST);
+        const ignoreList = getIgnoreList();
+
+        console.log('ignore list length:', ignoreList.length);
+
+
         console.log('List contains', list.length, 'urls');
         shuffleArray(list);
 
@@ -79,7 +100,7 @@ const loadPageAndSearchForJobs = async (page: Page, terms: string[]) => {
         const page = await browser.newPage();
 
         for (const item of list) {
-            if (item.url) {
+            if (item.url && !ignoreList.includes(item.url)) {
                 try {
                     await page.goto(item.url, { waitUntil: 'domcontentloaded' });
                     const links = await page.evaluate(() => {
@@ -122,16 +143,19 @@ const loadPageAndSearchForJobs = async (page: Page, terms: string[]) => {
                         for (const f of filtered.filter(f => filterHrefFn(f.href))) {
                             await page.goto(f.href, { waitUntil: 'domcontentloaded' });
                             const foundJobs = await loadPageAndSearchForJobs(page, technologiesKeywords);
-                            if (foundJobs.length > 0)
+                            if (foundJobs.length > 0) {
+
+                                db_found.insert({ id: Date.now(), found: foundJobs, url: f.href });
                                 console.log('!!!!Found!!!!', foundJobs, f.href);
+                            }
                         }
                     }
 
                     console.log(item.name, 'total discovered urls:', filtered.length);
 
-
-
                 } catch (e: any) {
+
+                    db_errored.insert({ id: Date.now(), error: e?.message, url: item.url });
                     console.log(e?.message, item.url);
 
                 }
