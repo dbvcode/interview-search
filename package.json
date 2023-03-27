@@ -1,0 +1,27 @@
+{
+  "name": "interview-search",
+  "version": "1.0.0",
+  "description": "Hiring Without Whiteboards Search",
+  "main": "dist/app.js",
+  "scripts": {
+    "start:dev": "npx nodemon",
+    "build": "rm -rf ./dist/* && tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "keywords": [
+    "tech",
+    "jobs",
+    "interview",
+    "whiteboard",
+    "hiring",
+    "airtable",
+    "hiring-without-whiteboards",
+    "search"
+  ],
+  "author": "dbvcode",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.10",
+    "typescript": "^5.0.2"
+  }
+}
