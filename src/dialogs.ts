@@ -12,8 +12,8 @@ export const menuDialog = async (skipClearConsole?: boolean) => {
         name: 'choice',
         choices: [
             { name: 'search', message: '🌐 Search the HWW list' },
-            { name: 'sort', message: '✔️  Sort the already found results' },
-            { name: 'display', message: '⭐ Display favourites' }
+            { name: 'sort', message: `✔️  Sort the already found results (${Array.from(db_found).length})` },
+            { name: 'display', message: `⭐ Display favourites (${Array.from(db_favourited).length})` }
         ]
     });
 
