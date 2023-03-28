@@ -66,4 +66,6 @@ Eventually these will be filtered into:
 
 ## TODO
 
+-   Exit app function :D
 -   Refine the user experience a bit
+
