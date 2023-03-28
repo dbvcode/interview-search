@@ -1,12 +1,9 @@
 import { connect } from 'json-file-database';
+import { Errored, Found, Ignored, Searched } from './models';
 
 const db = connect({
     file: './db.json'
 });
-
-type Found = { id: number, url: string, found: string[] };
-type Errored = { id: number, url: string, error?: string };
-type Ignored = { id: number, url: string };
 
 export const db_found = db<Found>({
     name: 'found',
@@ -18,10 +15,18 @@ export const db_errored = db<Errored>({
     primaryKey: 'id',
 });
 
-export const db_ignored = db<Errored>({
+export const db_ignored = db<Ignored>({
     name: 'ignored',
     primaryKey: 'id',
 });
 
+export const db_searched = db<Searched>({
+    name: 'searched',
+    primaryKey: 'id',
+});
 
+export const db_favourited = db<Found>({
+    name: 'favourited',
+    primaryKey: 'id',
+});
 
