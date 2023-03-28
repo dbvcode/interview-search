@@ -3,6 +3,8 @@ import * as dotenv from "dotenv";
 import puppeteer, { Page } from "puppeteer";
 import { db_errored, db_found } from "./db";
 
+import Enquirer from 'enquirer';
+
 dotenv.config();
 
 declare global {
@@ -72,9 +74,27 @@ const getIgnoreList = () => {
     ]
 }
 
+// showAllFound();
+
+// (async()=>{
+//     const prompt =await Enquirer.prompt({
+//         choices:['apple', 'grape', 'watermelon', 'cherry', 'orange'],
+//         message:'Pick',
+//         name:'color',
+//         type:'select',
+//     })
+
+//     console.log(prompt);
+    
+// })()
+
+
+
+  
+
 (async () => {
 
-    showAllFound();
+   
 
     if (!process.env.TECHNOLOGIES_TERMS || !process.env.HREF_DISCOVER || !process.env.HWW_LIST) {
         console.log('TECHNOLOGIES_TERMS, HREF_DISCOVER, HWW_LIST should be configured in .env file');
@@ -148,6 +168,7 @@ const getIgnoreList = () => {
                                 db_found.insert({ id: Date.now(), found: foundJobs, url: f.href });
                                 console.log('!!!!Found!!!!', foundJobs, f.href);
                             }
+
                         }
                     }
 
