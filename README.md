@@ -2,17 +2,19 @@
 
 ## Description
 
-This tools needs to search in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list. It tries to search for the `TECHNOLOGIES_TERMS` in the pages and also looks for hrefs to potential job listings where it searches for the terms again.
+Automated tool that searches in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list for potential job ads. 
 
-The search is case insensitive and it's achieved with puppeteer. It opens a browser so the pages are also displayed while searching.
+It search for keywords(python, docker, whatever) in each page from the list. Plus it tries to go a level deeper and follow any button or link that contains a predefined keyword(join, career, etc). If such links are found, the search for the main keywords is repeated there.
 
-During the search it aims to create 3 lists:
+The search is case insensitive. A browser window opens while the search is performed so you can see it at work.
 
--   urls containing terms
+During the search it will create 3 lists:
+
+-   urls containing keywords
 -   errored urls
 -   not matching urls
 
-Eventually these will be filtered into:
+Eventually these will be filtered by hand into:
 
 -   favourite
 -   ignored
@@ -23,11 +25,11 @@ Eventually these will be filtered into:
 
 -   The app and methodology is clearly not bulletproof and I am sure a lot of results are not found.
 
--   There's so much room to improve the app, like scraping in parallel for instance, add stats, etc. For now that's not a priority for me but PRs are welcomed!
+-   There's so much room to improve the app, like scraping in parallel for instance, add stats, etc. For now that's not a priority, but PRs are welcomed!
 
 -   After search the app will create a `db.json` file. If you want to start fresh just delete the file and restart the app.
 
--   If you use the app and it helps you, please leave a comment, improve the app, star the repo. Do something to show you like it!
+-   If you use the app and it helps you, please leave a comment, improve the app, star the repo. Le me know you like it!
 
 ## Features
 
