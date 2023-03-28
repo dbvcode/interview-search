@@ -32,10 +32,10 @@ Eventually these will be filtered into:
 ## Features
 
 -   simple cli interface
--   random search in list
+-   random search in url list
 -   exclude urls previously visited
 -   resume search
--   filter the lists
+-   filter the resulting lists
 -   display the final favourite list
 
 
@@ -66,6 +66,7 @@ Eventually these will be filtered into:
 
 ## TODO
 
--   Exit app function :D
--   Refine the user experience a bit
+-   exit app function :D
+-   more flexibility with the lists (reset, display, etc)
+-   refine the user experience a bit
 
