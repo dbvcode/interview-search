@@ -26,6 +26,13 @@ Eventually these will be filtered into:
 -   filter the lists
 -   display the final favourite list
 
+
+## Screenshots
+
+![main menu](resources/main_menu.png "Main menu")
+![searching](resources/search.png "Searching")
+![sort list](resources/sort_list.png "Sorting the list")
+
 ## Usage
 
     1. Create a `.env` file in the root folder.
