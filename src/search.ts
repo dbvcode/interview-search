@@ -81,64 +81,68 @@ export const searchHWWList = async () => {
         const ignoreList = getIgnoreList();
 
         console.log('Ignored urls:', ignoreList.length);
-        console.log('Total urls to start from:', urlsList.length - ignoreList.length);
+        console.log('Total urls in HWW list:', urlsList.length);
         shuffleArray(urlsList);
 
         const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
 
         for (const item of urlsList) {
-            if (item.url && !ignoreList.includes(item.url)) {
-                try {
-                    await page.goto(item.url, { waitUntil: 'domcontentloaded' });
-                    const links = await page.evaluate(() => {
-                        const results = [];
-                        const hrefs = new Set();
-                        const elements = document.querySelectorAll('a');
-                        for (const element of elements) {
-                            let text = element.textContent;
-                            const href = element.href;
-                            if (!hrefs.has(href)) {
-                                hrefs.add(href);
-                                if (text?.includes('<img') || text?.includes('<picture>') || text?.includes('src=')) {
-                                    const match = text.match(/alt="([^"]+)"/g);
-                                    if (match) {
-                                        text = match[1];
+            if (item.url) {
+                if (!ignoreList.includes(item.url)) {
+                    try {
+                        await page.goto(item.url, { waitUntil: 'domcontentloaded' });
+                        const links = await page.evaluate(() => {
+                            const results = [];
+                            const hrefs = new Set();
+                            const elements = document.querySelectorAll('a');
+                            for (const element of elements) {
+                                let text = element.textContent;
+                                const href = element.href;
+                                if (!hrefs.has(href)) {
+                                    hrefs.add(href);
+                                    if (text?.includes('<img') || text?.includes('<picture>') || text?.includes('src=')) {
+                                        const match = text.match(/alt="([^"]+)"/g);
+                                        if (match) {
+                                            text = match[1];
+                                        }
                                     }
+                                    results.push({ name: text?.replace(/\n/g, "").trim(), href });
                                 }
-                                results.push({ name: text?.replace(/\n/g, "").trim(), href });
+                            }
+                            return results;
+                        });
+
+
+                        const foundTerms = await searchTechnologyKeywordsInPage(page, technologiesKeywords);
+                        if (foundTerms.length > 0) {
+                            db_found.insert({ id: Date.now(), found: foundTerms, url: item.url });
+                            console.log('Found:', foundTerms, item.url);
+                        } else {
+                            db_searched.insert({ id: Date.now(), url: item.url });
+                        }
+
+                        const filtered = links.filter(l => filterTextByTerms(hrefKeywords, l.name?.toLocaleLowerCase()));
+                        if (filtered.length > 0) {
+                            for (const f of filtered.filter(f => filterHrefFn(f.href))) {
+                                await page.goto(f.href, { waitUntil: 'domcontentloaded' });
+                                const foundTerms = await searchTechnologyKeywordsInPage(page, technologiesKeywords);
+                                if (foundTerms.length > 0) {
+                                    db_found.insert({ id: Date.now(), found: foundTerms, url: f.href });
+                                    console.log('Found:', foundTerms, f.href);
+                                }
                             }
                         }
-                        return results;
-                    });
 
+                        console.log(`${item.name}: discovered urls: ${filtered.length}`);
 
-                    const foundTerms = await searchTechnologyKeywordsInPage(page, technologiesKeywords);
-                    if (foundTerms.length > 0) {
-                        db_found.insert({ id: Date.now(), found: foundTerms, url: item.url });
-                        console.log('Found:', foundTerms, item.url);
-                    } else {
-                        db_searched.insert({ id: Date.now(), url: item.url });
+                    } catch (e: any) {
+
+                        db_errored.insert({ id: Date.now(), error: e?.message, url: item.url });
+                        console.log(e?.message, item.url);
                     }
-
-                    const filtered = links.filter(l => filterTextByTerms(hrefKeywords, l.name?.toLocaleLowerCase()));
-                    if (filtered.length > 0) {
-                        for (const f of filtered.filter(f => filterHrefFn(f.href))) {
-                            await page.goto(f.href, { waitUntil: 'domcontentloaded' });
-                            const foundTerms = await searchTechnologyKeywordsInPage(page, technologiesKeywords);
-                            if (foundTerms.length > 0) {
-                                db_found.insert({ id: Date.now(), found: foundTerms, url: f.href });
-                                console.log('Found:', foundTerms, f.href);
-                            }
-                        }
-                    }
-
-                    console.log(`${item.name}: discovered urls: ${filtered.length}`);
-
-                } catch (e: any) {
-
-                    db_errored.insert({ id: Date.now(), error: e?.message, url: item.url });
-                    console.log(e?.message, item.url);
+                } else {
+                    console.log('Ignoring', item.url);
                 }
             }
         }
