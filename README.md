@@ -6,7 +6,7 @@ This tool need to search in the [hiring-without-whiteboards](https://github.com/
 
 The search is case insensitive and it's achieved with puppeteer. It opens a browser so the pages are also displayed while searching.
 
-After the search it aims to create 3 lists:
+During the search it aims to create 3 lists:
 
 -   urls containing terms
 -   errored urls
@@ -19,7 +19,7 @@ Eventually these will be filtered into:
 
 ## Notes
 
--   This app is intended for me to sift thru the list in an easy manner and am happy if I find a few automated job openings along the way!
+-   This app is intended to sift thru the list in an easy manner and am happy if I find a few automated job openings along the way!
 
 -   The app and methodology is clearly not bulletproof and I am sure a lot of results are not found.
 
