@@ -2,7 +2,7 @@
 
 ## Description
 
-This tool need to search in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list. It tries to search for the `TECHNOLOGIES_TERMS` in the pages and also looks for hrefs to potential job listings where it searches for the terms again.
+This tools needs to search in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list. It tries to search for the `TECHNOLOGIES_TERMS` in the pages and also looks for hrefs to potential job listings where it searches for the terms again.
 
 The search is case insensitive and it's achieved with puppeteer. It opens a browser so the pages are also displayed while searching.
 
@@ -38,20 +38,18 @@ Eventually these will be filtered into:
 -   filter the resulting lists
 -   display the final favourite list
 
-
 ## Screenshots
 
-![main menu](resources/main_menu.png "Main menu")
-![searching](resources/search.png "Searching")
-![sort list](resources/sort_list.png "Sorting the list")
+![main menu](resources/main_menu.png 'Main menu') ![searching](resources/search.png 'Searching') ![sort list](resources/sort_list.png 'Sorting the list')
 
 ## Usage
 
 1. Create a `.env` file in the root folder.
 2. Add:
-    * `TECHNOLOGIES_TERMS` - comma separated list of the technologies/terms you want to search for
-    * `HREF_DISCOVER` - list of terms in the buttons or links that might reveal job openings. What's already here should pe pretty good
-    * `HWW_LIST` - the url for the hiring-without-whiteboards list
+
+    - `TECHNOLOGIES_TERMS` - comma separated list of the technologies/terms you want to search for
+    - `HREF_DISCOVER` - list of terms in the buttons or links that might reveal job openings. What's already here should pe pretty good
+    - `HWW_LIST` - the url for the hiring-without-whiteboards list
 
 3. `.env` file should look like this:
 
@@ -67,6 +65,6 @@ Eventually these will be filtered into:
 ## TODO
 
 -   exit app function :D
--   more flexibility with the lists (reset, display, etc)
+-   more flexibility with each of the lists (reset, display, etc)
+-   display company name and details in lists management
 -   refine the user experience a bit
-
