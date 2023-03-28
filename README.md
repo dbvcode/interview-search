@@ -4,7 +4,7 @@
 
 This tool need to search in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list. It tries to search for the `TECHNOLOGIES_TERMS` in the pages and also looks for hrefs to potential job listings where it searches for the terms again.
 
-The search is case insensitive and it's achieved with puppeteer. It openes a browser so the pages are also displayed while searching.
+The search is case insensitive and it's achieved with puppeteer. It opens a browser so the pages are also displayed while searching.
 
 After the search it aims to create 3 lists:
 
@@ -49,10 +49,14 @@ Eventually these will be filtered into:
 
 -   This app is intended for me to sift thru the list in an easy manner and am happy if I find a few automated job openings along the way!
 
--   The app and methodology is clearly not buletproof and I am sure a lot of results are not found.
+-   The app and methodology is clearly not bulletproof and I am sure a lot of results are not found.
 
 -   There's so much room to improve the app, like scraping in parallel for instance, add stats, etc. For now that's not a priority for me but PRs are welcomed!
 
 -   After search the app will create a `db.json` file. If you want to start fresh just delete the file and restart the app.
 
 -   If you use the app and it helps you, please leave a comment, improve the app, star the repo. Do something to show you like it!
+
+## TODO
+
+-   Refine the user experience a bit
