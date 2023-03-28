@@ -4,7 +4,7 @@
 
 Automated tool that searches in the [hiring-without-whiteboards](https://github.com/poteto/hiring-without-whiteboards) list for potential job ads. 
 
-It search for keywords(python, docker, whatever) in each page from the list. Plus it tries to go a level deeper and follow any button or link that contains a predefined keyword(join, career, etc). If such links are found, the search for the main keywords is repeated there.
+It searches for keywords(python, docker, whatever) in each page from the list. Plus it tries to go a level deeper and follow any button or link that contains a predefined keyword(join, career, etc). If such links are found, the search for the main keywords is repeated there.
 
 The search is case insensitive. A browser window opens while the search is performed so you can see it at work.
 
