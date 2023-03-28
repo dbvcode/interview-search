@@ -35,13 +35,13 @@ Eventually these will be filtered into:
 
 ## Usage
 
-    1. Create a `.env` file in the root folder.
-    2. Add:
-        * `TECHNOLOGIES_TERMS` - comma separated list of the technologies/terms you want to search for
-        * `HREF_DISCOVER` - list of terms in the buttons or links that might reveal job openings. What's already here should pe pretty good
-        * `HWW_LIST` - the url for the hiring-without-whiteboards list
+1. Create a `.env` file in the root folder.
+2. Add:
+    * `TECHNOLOGIES_TERMS` - comma separated list of the technologies/terms you want to search for
+    * `HREF_DISCOVER` - list of terms in the buttons or links that might reveal job openings. What's already here should pe pretty good
+    * `HWW_LIST` - the url for the hiring-without-whiteboards list
 
-    3. `.env` file should look like this:
+3. `.env` file should look like this:
 
 ```
     TECHNOLOGIES_TERMS=python, docker, java
@@ -49,8 +49,8 @@ Eventually these will be filtered into:
     HWW_LIST='https://raw.githubusercontent.com/poteto/hiring-without-whiteboards/master/README.md'
 ```
 
-    4. run `npm install`
-    5. run `npm start`
+4. run `npm install`
+5. run `npm start`
 
 ## Notes
 
