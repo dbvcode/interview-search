@@ -2,7 +2,6 @@ import axios from "axios";
 import puppeteer, { Page } from "puppeteer";
 import { db_errored, db_favourited, db_found, db_ignored, db_searched } from "./db";
 
-
 declare global {
     interface Window {
         find?: any;
@@ -46,7 +45,6 @@ const shuffleArray = (array: any[]) => {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-
 
 const filterHrefFn = (href: string): boolean => !href.includes('@') && !href.includes('mailto');
 
@@ -108,7 +106,6 @@ export const searchHWWList = async () => {
                                         text = match[1];
                                     }
                                 }
-
                                 results.push({ name: text?.replace(/\n/g, "").trim(), href });
                             }
                         }
@@ -130,14 +127,13 @@ export const searchHWWList = async () => {
                             await page.goto(f.href, { waitUntil: 'domcontentloaded' });
                             const foundTerms = await searchTechnologyKeywordsInPage(page, technologiesKeywords);
                             if (foundTerms.length > 0) {
-
                                 db_found.insert({ id: Date.now(), found: foundTerms, url: f.href });
                                 console.log('Found:', foundTerms, f.href);
                             }
                         }
                     }
 
-                    console.log(item.name, 'total discovered urls:', filtered.length);
+                    console.log(`${item.name}: discovered urls: ${filtered.length}`);
 
                 } catch (e: any) {
 
