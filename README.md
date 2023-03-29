@@ -21,11 +21,11 @@ Eventually these will be filtered by hand into:
 
 ## Notes
 
--   This app is intended to sift thru the list in an easy manner and am happy if I find a few automated job openings along the way!
+-   This app is intended to sift thru the list in an easy manner and am happy if I find a few job openings along the way!
 
 -   The app and methodology is clearly not bulletproof and I am sure a lot of results are not found.
 
--   There's so much room to improve the app, like scraping in parallel for instance, add stats, etc. For now that's not a priority, but PRs are welcomed!
+-   There's much room to improve the app, like scraping in parallel for instance, add stats, etc. For now that's not a priority, but PRs are welcomed!
 
 -   After search the app will create a `db.json` file. If you want to start fresh just delete the file and restart the app.
 
